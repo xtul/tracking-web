@@ -4,29 +4,14 @@
       <b-col>
         <b-card-body title="Log in">
           <b-card-text>
-            <b-form @submit="onSubmit">
-                <b-form-group
-                  id="input-group-1"
-                  label="E-mail:"
-                  label-for="input-1"
-                  description="Required to receive notifications. Can be changed later."
+            <b-form @submit="onSubmit">            
+                <b-form-group 
+                    id="input-group-1" 
+                    label="Nickname:" 
+                    label-for="input-1"
                 >
                   <b-form-input
                     id="input-1"
-                    v-model="form.email"
-                    type="email"
-                    required
-                  ></b-form-input>
-                </b-form-group>
-            
-                <b-form-group 
-                    id="input-group-2" 
-                    label="Nickname:" 
-                    label-for="input-2"
-                    description="This will be your log in."
-                >
-                  <b-form-input
-                    id="input-2"
                     v-model="form.name"
                     required
                   ></b-form-input>
@@ -56,7 +41,6 @@ export default {
     data() {
         return {
             form: {
-                email: '',
                 name: '',
                 password: ''
             }

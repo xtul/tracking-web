@@ -6,9 +6,9 @@ module.exports = {
             'vue$',
             path.resolve(__dirname, 'node_modules/vue/dist/vue.esm.js')
         );
-        configureWebpack: {
-            module: {
-                rules: [
+        {
+            {
+                [
                     { sideEffects: false }
                 ]
             }

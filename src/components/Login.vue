@@ -28,6 +28,9 @@
             
                 <b-button type="submit" variant="primary">Log in</b-button>
 				<a id="noaccount" href="#" v-on:click="emitToggledRegister()">I don't have an account yet</a>
+				<p v-if="registeredMessage != ''">{{ registeredMessage }}</p>
+				<p v-if="loading">Loading...</p>
+				<p v-if="message != '' && loading == false">{{ message }}</p>
             </b-form>
           </b-card-text>
         </b-card-body>
@@ -44,18 +47,34 @@ export default {
             form: {
                 name: '',
                 password: ''
-            }
+            },
+			loading: false,
+			message: ''
         }
     },
+	props: ['registeredMessage'],
     methods: {
 		emitToggledRegister() {
 			this.$emit('onToggleRegister', true);
 		},
-        onSubmit(event) {
-            event.preventDefault()
-            alert(JSON.stringify(this.form))
-        },
-    }
+		onSubmit(event) {
+			event.preventDefault();
+
+			this.loading = true;
+			this.$store.dispatch('auth/login', this.form).then(
+				() => {
+					this.$router.push('/');
+				},
+				error => {
+					this.loading = false;
+					this.message =
+						(error.response && error.response.data) ||
+						error.message ||
+						error.toString();
+				}
+			)
+		}
+	}
 }
 </script>
 

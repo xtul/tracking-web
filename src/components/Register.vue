@@ -4,7 +4,7 @@
       <b-col>
         <b-card-body title="Register">
           <b-card-text>
-            <b-form @submit="onSubmit">
+            <b-form @submit="onSubmit" v-if="registered === false">
                 <b-form-group
                   id="input-group-1"
                   label="E-mail:"
@@ -44,6 +44,8 @@
                 <b-button type="submit" variant="primary">Register</b-button>
 				<a id="hasaccount" href="#" v-on:click="emitToggleLogin()">Log in</a>
             </b-form>
+			<p id="success" v-else>Registered successfully - you will now be redirected.</p>
+			<p id="error" v-if="registrationError != ''" ref="errorEl">{{ registrationError }}</p>
           </b-card-text>
         </b-card-body>
       </b-col>
@@ -60,16 +62,39 @@ export default {
                 name: '',
                 email: '',
                 password: ''
-            }
+            },
+			registered: false,
+			registrationError: ''
         }
     },
+	computed: {
+		loggedIn() {
+			return this.$store.state.auth.status.loggedIn;
+		}
+	},
     methods: {
         onSubmit(event) {
             event.preventDefault()
-            alert(JSON.stringify(this.form))
+
+			this.registered = false;
+
+			this.$store.dispatch('auth/register', this.form).then(
+				() => {
+					this.registered = true;
+					this.emitToggleLogin();
+				},
+				error => {
+					this.registrationError = 'Failed: status ' + error.response + ', ' + error.response.data;
+				}
+			);
         },
+
 		emitToggleLogin() {
 			this.$emit('onToggleLogin');
+		},
+		
+		emitRegisterSuccess() {
+			this.$emit('onRegisterSuccess');
 		}
     }
 }
@@ -78,5 +103,13 @@ export default {
 <style>
 	#hasaccount {
 		padding-left:0.5em;
+	}
+
+	#error {
+		color:red;
+	}
+
+	#success {
+		color:green;
 	}
 </style>

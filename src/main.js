@@ -17,6 +17,7 @@ import { BForm } from 'bootstrap-vue';
 import { BButton } from 'bootstrap-vue';
 import { BFormGroup } from 'bootstrap-vue';
 import { BFormInput } from 'bootstrap-vue';
+import store from './store'
 Vue.component('b-form', BForm);
 Vue.component('b-button', BButton);
 Vue.component('b-form-group', BFormGroup);
@@ -47,7 +48,9 @@ router.beforeEach((to, from, next) => {
 	next();
 });
 
+
 new Vue({
-	router,
-	render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app');

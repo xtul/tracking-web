@@ -2,7 +2,7 @@
   <b-card border-variant="light" no-body class="overflow-hidden">
     <b-row no-gutters>
       <b-col>
-        <b-card-body title="I don't have an account yet">
+        <b-card-body title="Register">
           <b-card-text>
             <b-form @submit="onSubmit">
                 <b-form-group
@@ -23,7 +23,7 @@
                     id="input-group-2" 
                     label="Nickname:" 
                     label-for="input-2"
-                    description="This will be your log in."
+                    description="You will log in using this."
                 >
                   <b-form-input
                     id="input-2"
@@ -42,6 +42,7 @@
                 </b-form-group>
             
                 <b-button type="submit" variant="primary">Register</b-button>
+				<a id="hasaccount" href="#" v-on:click="emitToggleLogin()">Log in</a>
             </b-form>
           </b-card-text>
         </b-card-body>
@@ -67,6 +68,15 @@ export default {
             event.preventDefault()
             alert(JSON.stringify(this.form))
         },
+		emitToggleLogin() {
+			this.$emit('onToggleLogin');
+		}
     }
 }
 </script>
+
+<style>
+	#hasaccount {
+		padding-left:0.5em;
+	}
+</style>

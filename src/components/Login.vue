@@ -17,16 +17,17 @@
                   ></b-form-input>
                 </b-form-group>
             
-                <b-form-group id="input-group-3" label="Password:" label-for="input-3">
+                <b-form-group id="input-group-2" label="Password:" label-for="input-2">
                   <b-form-input
-                    id="input-3"
+                    id="input-2"
                     v-model="form.password"
                     type="password"
                     required
                   ></b-form-input>
                 </b-form-group>
             
-                <b-button type="submit" variant="primary">Submit</b-button>
+                <b-button type="submit" variant="primary">Log in</b-button>
+				<a id="noaccount" href="#" v-on:click="emitToggledRegister()">I don't have an account yet</a>
             </b-form>
           </b-card-text>
         </b-card-body>
@@ -47,6 +48,9 @@ export default {
         }
     },
     methods: {
+		emitToggledRegister() {
+			this.$emit('onToggleRegister', true);
+		},
         onSubmit(event) {
             event.preventDefault()
             alert(JSON.stringify(this.form))
@@ -54,3 +58,9 @@ export default {
     }
 }
 </script>
+
+<style>
+#noaccount {
+	padding-left:0.5em;
+}
+</style>

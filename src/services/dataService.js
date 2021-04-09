@@ -1,22 +1,63 @@
-import store from '../store/index.js'
+import GetApi from '../helpers/getApiUrl';
+import AuthService from './authService';
+import router from '../router';
 
-const url = store.getters.getApiUrl;
+const url = GetApi();
 
 class UserService {
 	async makeRequest(dir, body) {
+		let user = AuthService.getUser();
+
+		if (user == undefined) {
+			AuthService.logout();
+			router.push('/login');
+		}
+
+		const tokenValidateResult = await fetch(url + 'auth/validate', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json;charset=utf-8'
+			},
+			body: JSON.stringify({
+				"token": user.token,
+				"refreshToken": user.refreshToken
+			})
+		})
+
+		if (tokenValidateResult.status !== 200) {
+			const newToken = AuthService.refresh({
+				"token": user.token,
+				"refreshToken": user.refreshToken
+			});
+			user.token = newToken.token;
+			user.refreshToken = newToken.refreshToken;
+		}
+
+		let result;
 		if (body == null) {
-			return await fetch(url + dir, {
-				method: 'GET'
+			result = await fetch(url + dir, {
+				method: 'GET',
+				headers: {
+					'Authorization': 'Bearer ' + user.token
+				}
 			});
 		} else {
-			return await fetch(url + dir, {
+			result = await fetch(url + dir, {
 				method: 'POST',
 				headers: {
-					'Content-Type': 'application/json;charset=utf-8'
+					'Content-Type': 'application/json;charset=utf-8',
+					'Authorization': 'Bearer ' + user.token
 				},
 				body: JSON.stringify(body)
 			});
 		}
+
+		// if request still failed, token was invalidated
+		if (result.status == 401) {
+			AuthService.logout();
+		}
+
+		return await result.json();
 	}
 }
 

@@ -1,15 +1,25 @@
 <template>
-  <b-container fluid>
-    <b-row align-v="center" align-h="center">
-      <b-col cols="12" md="4">
-        Logged in, account stuff should be here.
-      </b-col>
-    </b-row>
-  </b-container>
+	<b-container fluid>
+		<b-row align-v="center" align-h="center">
+			<b-col cols="12" md="4">
+				Logged in, account stuff should be here.
+			</b-col>
+		</b-row>
+	</b-container>
 </template>
 
 <script>
+import DataService from '../services/dataService';
+
 export default {
-  name: 'HomePage',
+	name: 'HomePage',
+	data() {
+		return {
+			devices: {}
+		}
+	},
+	async created() {
+		this.devices = await DataService.makeRequest('devices/all');
+	}
 }
 </script>

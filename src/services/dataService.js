@@ -25,12 +25,12 @@ class UserService {
 		})
 
 		if (tokenValidateResult.status !== 200) {
-			const newToken = AuthService.refresh({
+			await AuthService.refresh({
 				"token": user.token,
 				"refreshToken": user.refreshToken
 			});
-			user.token = newToken.token;
-			user.refreshToken = newToken.refreshToken;
+			// reload user
+			user = AuthService.getUser();
 		}
 
 		let result;

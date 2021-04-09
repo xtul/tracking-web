@@ -57,6 +57,7 @@ class AuthService {
 
 			localStorage.setItem('user', JSON.stringify(user));
 		}
+		
 	}
 }
 

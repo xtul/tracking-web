@@ -28,12 +28,6 @@ export default new Vuex.Store({
 			);
 		}
 	},
-	getters: {
-		GetDevices: state => {
-			this.dispatch('RequestDevices');
-			return state.devices;
-		}
-	},
 	modules: {
 		auth
 	}

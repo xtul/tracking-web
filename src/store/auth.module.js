@@ -25,6 +25,7 @@ export default {
 		logout({ commit }) {
 			AuthService.logout();
 			commit('logout');
+			return Promise.resolve();
 		},
 		register({ commit }, user) {
 			return AuthService.register(user).then(

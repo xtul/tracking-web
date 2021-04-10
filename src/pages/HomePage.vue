@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import DataService from '../services/dataService';
 import AuthService from '../services/authService';
 import router from '../router';
 
@@ -22,7 +21,7 @@ export default {
 		}
 	},
 	async created() {
-		this.devices = await DataService.makeRequest('devices/all');
+		this.devices = await this.$store.dispatch('RequestDevices');
 	},
 	methods: {
 		async logout() {

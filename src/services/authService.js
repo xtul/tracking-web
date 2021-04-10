@@ -24,7 +24,20 @@ class AuthService {
 		});
 	}
 	
-	logout() {
+	async logout() {
+		const user = this.getUser();
+		await fetch(url + 'auth/revoke', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json;charset=utf-8',
+				'Authorization': 'Bearer ' + user.token
+			},
+			body: JSON.stringify({
+				'token': user.token,
+				'refreshToken': user.refreshToken
+			})
+		});
+
 		localStorage.removeItem('user');
 	}
 

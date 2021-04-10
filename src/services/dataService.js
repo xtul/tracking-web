@@ -4,12 +4,12 @@ import router from '../router';
 
 const url = GetApi();
 
-class UserService {
+class DataService {
 	async makeRequest(dir, body) {
 		let user = AuthService.getUser();
 
 		if (user == undefined) {
-			AuthService.logout();
+			await AuthService.logout();
 			router.push('/login');
 		}
 
@@ -24,7 +24,7 @@ class UserService {
 			})
 		})
 
-		if (tokenValidateResult.status !== 200) {
+		if (tokenValidateResult.status === 400) {
 			await AuthService.refresh({
 				"token": user.token,
 				"refreshToken": user.refreshToken
@@ -54,11 +54,17 @@ class UserService {
 
 		// if request still failed, token was invalidated
 		if (result.status == 401) {
-			AuthService.logout();
+			try {
+				await AuthService.logout();
+			} catch {
+				router.push('/login')
+			}
+			router.push('/login')
+			return;
 		}
 
 		return await result.json();
 	}
 }
 
-export default new UserService();
+export default new DataService();

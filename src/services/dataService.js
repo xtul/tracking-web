@@ -5,9 +5,8 @@ import router from '../router';
 const url = GetApi();
 
 class DataService {
-	async makeRequest(dir, body) {
+	async makeRequest(dir, body, method) {
 		let user = AuthService.getUser();
-
 		if (user == undefined) {
 			await AuthService.logout();
 			router.push('/login');
@@ -33,24 +32,21 @@ class DataService {
 			user = AuthService.getUser();
 		}
 
-		let result;
-		if (body == null) {
-			result = await fetch(url + dir, {
-				method: 'GET',
-				headers: {
-					'Authorization': 'Bearer ' + user.token
-				}
-			});
-		} else {
-			result = await fetch(url + dir, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json;charset=utf-8',
-					'Authorization': 'Bearer ' + user.token
-				},
-				body: JSON.stringify(body)
-			});
+		if (method == null) {
+			method = 'GET';
 		}
+
+		const options = {
+			method: method,
+			headers: {
+				'Authorization': 'Bearer ' + user.token
+			}
+		};
+		if (body != null) {
+			options.headers['Content-Type'] = 'application/json;charset=utf-8';
+			options.body = JSON.stringify(body);
+		}
+		let result = await fetch(url + dir, options);
 
 		// if request still failed, token was invalidated
 		if (result.status == 401) {

@@ -1,33 +1,23 @@
 <template>
-	<b-container fluid>
-		<b-row align-v="center" align-h="center">
-			<b-col cols="12" md="4">
-				Logged in, account stuff should be here.
-				<button @click="logout()">Log out.</button>
-			</b-col>
-		</b-row>
-	</b-container>
+	<div>
+		<NavBar />
+		<b-container fluid>
+			<b-row align-v="center" align-h="center">
+				<b-col cols="12">
+					map will be right here
+				</b-col>
+			</b-row>
+		</b-container>
+	</div>	
 </template>
 
 <script>
-import AuthService from '../services/authService';
-import router from '../router';
+import NavBar from '../components/Home/NavBar';
 
 export default {
 	name: 'HomePage',
-	data() {
-		return {
-			devices: {}
-		}
-	},
-	async created() {
-		this.devices = await this.$store.dispatch('RequestDevices');
-	},
-	methods: {
-		async logout() {
-			await AuthService.logout();
-			router.push('/login');
-		}
+	components: {
+		NavBar
 	}
 }
 </script>

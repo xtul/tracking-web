@@ -11,16 +11,43 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import { LayoutPlugin } from 'bootstrap-vue';
 import { CardPlugin } from 'bootstrap-vue';
-import { BForm } from 'bootstrap-vue';
-import { BButton } from 'bootstrap-vue';
-import { BFormGroup } from 'bootstrap-vue';
-import { BFormInput } from 'bootstrap-vue';
+Vue.use(LayoutPlugin);
+Vue.use(CardPlugin);
+
+import {
+    BForm,
+    BButton,
+    BFormGroup,
+    BFormInput
+} from 'bootstrap-vue';
 Vue.component('b-form', BForm);
 Vue.component('b-button', BButton);
 Vue.component('b-form-group', BFormGroup);
 Vue.component('b-form-input', BFormInput);
-Vue.use(LayoutPlugin);
-Vue.use(CardPlugin);
+
+import {
+    BCollapse,
+    BNavbar,
+    BNavbarBrand,
+    BNavbarNav,
+    BNavbarToggle,
+    BNavItem,
+    BNavItemDropdown,
+    BDropdownItem
+} from 'bootstrap-vue';
+Vue.component('b-collapse', BCollapse);
+Vue.component('b-navbar', BNavbar);
+Vue.component('b-navbar-brand', BNavbarBrand);
+Vue.component('b-navbar-nav', BNavbarNav);
+Vue.component('b-nav-item', BNavItem);
+Vue.component('b-nav-item-dropdown', BNavItemDropdown);
+Vue.component('b-dropdown-item', BDropdownItem);
+Vue.component('b-navbar-toggle', BNavbarToggle);
+
+// vue-layers (openlayers for vue)
+import VueLayers from 'vuelayers';
+import 'vuelayers/lib/style.css';
+Vue.use(VueLayers)
 
 Vue.config.productionTip = true;
 

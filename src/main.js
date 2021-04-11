@@ -47,7 +47,9 @@ Vue.component('b-navbar-toggle', BNavbarToggle);
 // vue-layers (openlayers for vue)
 import VueLayers from 'vuelayers';
 import 'vuelayers/lib/style.css';
-Vue.use(VueLayers)
+Vue.use(VueLayers, {
+    dataProjection: 'EPSG:4326',
+});
 
 Vue.config.productionTip = true;
 

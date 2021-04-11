@@ -17,7 +17,7 @@ export default new Vuex.Store({
 	},
 	actions: {
 		RequestDevices({ commit }) {
-			return DataService.makeRequest('devices/all').then(
+			return DataService.makeRequest('devices').then(
 				success => {
 					commit('AddDevices', success);
 					return Promise.resolve(success);

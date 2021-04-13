@@ -1,7 +1,7 @@
 <template>
 	<div class="home-container">
 		<NavBar />
-		<Map />		
+		<Map />
 	</div>	
 </template>
 
@@ -15,7 +15,9 @@ export default {
 		NavBar, Map
 	},
 	async created() {
-		this.$store.dispatch('RequestDevices');
+		// download all devices that belong to user
+		await this.$store.dispatch('devices/requestDevices');		
+		// Vuex WebSocket plugin will start tracking positions right after
 	}
 }
 </script>

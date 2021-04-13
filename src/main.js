@@ -14,6 +14,7 @@ import { CardPlugin } from 'bootstrap-vue';
 Vue.use(LayoutPlugin);
 Vue.use(CardPlugin);
 
+// forms
 import {
     BForm,
     BButton,
@@ -25,6 +26,7 @@ Vue.component('b-button', BButton);
 Vue.component('b-form-group', BFormGroup);
 Vue.component('b-form-input', BFormInput);
 
+// navbar
 import {
     BCollapse,
     BNavbar,
@@ -43,6 +45,10 @@ Vue.component('b-nav-item', BNavItem);
 Vue.component('b-nav-item-dropdown', BNavItemDropdown);
 Vue.component('b-dropdown-item', BDropdownItem);
 Vue.component('b-navbar-toggle', BNavbarToggle);
+
+// modal
+import { BModal } from 'bootstrap-vue';
+Vue.component('v-b-modal', BModal);
 
 // vue-layers (openlayers for vue)
 import VueLayers from 'vuelayers';

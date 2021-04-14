@@ -9,7 +9,7 @@
 					<vl-geom-point :coordinates="[device.position.Lon, device.position.Lat]"></vl-geom-point>
 					<vl-style-box>
 						<vl-style-icon src="/img/loc.png" :scale="0.2" :anchor="[0.5, 1]"></vl-style-icon>
-						<p>{{device.name}}</p>
+						<vl-style-text class="feature-label" :text="device.name" :offsetY="15" font="12px Avenir,Helvetica,Arial,sans-serif"></vl-style-text>
 					</vl-style-box>
 				</vl-feature>	
 			</template>

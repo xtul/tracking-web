@@ -13,6 +13,7 @@ export default {
 		login({ commit }, user) {
 			return AuthService.login(user).then(
 				user => {
+					localStorage.setItem('user', JSON.stringify(user));
 					commit('loginSuccess', user);
 					return Promise.resolve(user);
 				},

@@ -1,4 +1,5 @@
 import GetApi from '../helpers/getApiUrl';
+import store from '../store';
 
 const url = GetApi();
 
@@ -39,6 +40,7 @@ class AuthService {
 		});
 
 		localStorage.removeItem('user');
+		store.state.auth.user = undefined;
 	}
 
 	async login(form) {
@@ -49,9 +51,7 @@ class AuthService {
 			},
 			body: JSON.stringify(form)
 		});
-		const json = await response.json();
-		localStorage.setItem('user', JSON.stringify(json));
-		return response;
+		return await response.json();
 	}
 
 	async refresh(form) {
@@ -63,14 +63,9 @@ class AuthService {
 			body: JSON.stringify(form)
 		});
 		const json = await response.json();
-		if (json != null) {
-			const user = this.getUser();
+		store.state.auth.user = json;
 
-			user.token = json.token;
-
-			localStorage.setItem('user', JSON.stringify(user));
-		}
-		
+		localStorage.setItem('user', JSON.stringify(json));		
 	}
 }
 

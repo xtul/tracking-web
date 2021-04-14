@@ -6,10 +6,10 @@ const url = getUrl().replace('/api', '');
 
 export default function createWebSocketPlugin() {
 	return store => {
-		let user = AuthService.getUser();
+		let user = AuthService.getUser;
 		const client = new HubConnectionBuilder()
 			.configureLogging('error')
-			.withUrl(url + 'PositionsHub', { accessTokenFactory: () => user.token })
+			.withUrl(url + 'PositionsHub', { accessTokenFactory: () => JSON.parse(localStorage.getItem('user')).token })
 			.build()
 
 		client.on('stateChanged', (oldState, newState) => {

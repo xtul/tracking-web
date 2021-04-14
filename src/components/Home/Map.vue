@@ -4,7 +4,7 @@
 		<vl-view :zoom.sync="map.zoom" :center.sync="map.center" :rotation.sync="map.rotation"></vl-view>
 
 		<div :key="device.imei" v-for="device in $store.state.devices.devices">
-			<template v-if="device.position != null">
+			<template v-if="device.position != null && device.hidden === false">
 				<vl-feature :id="'position-feature-' + device.imei">
 					<vl-geom-point :coordinates="[device.position.Lon, device.position.Lat]"></vl-geom-point>
 					<vl-style-box>

@@ -23,6 +23,10 @@ export default {
 			state.error = error;
 		},
 		ADD_DEVICES(state, devices) {
+			devices.forEach(x => {
+				x.hidden = false;
+			});
+
 			state.devices = devices;
 		}
 	},

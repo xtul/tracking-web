@@ -7,7 +7,9 @@
 		<b-collapse id="nav-collapse" is-nav>
 			<!-- items on right side -->
 			<b-navbar-nav class="ml-auto">
-				<b-nav-item href="#">Devices</b-nav-item>
+				<b-nav-item @click="$bvModal.show('devices-modal')">Devices</b-nav-item>
+
+				<DevicesModal/>
 
 				<!-- dropdown -->
 				<b-nav-item-dropdown right>
@@ -24,8 +26,12 @@
 
 <script>
 import router from '../../router';
+import DevicesModal from '../Home/Modals/DevicesModal';
 
 export default {
+	components: {
+		DevicesModal
+	},
 	methods: {
 		async logout() {
 			await this.$store.dispatch('auth/logout');

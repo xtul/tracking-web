@@ -28,6 +28,16 @@ export default {
 			});
 
 			state.devices = devices;
+		},
+		UPDATE_DEVICE(state, payload) {
+			let device = state.devices.filter(x => x.imei == payload.imei)[0];
+			if (device == null) {
+				return;
+			}
+
+			device.name = payload.device.name;
+			device.imei = payload.device.imei;
+			device.enabled = payload.device.enabled;
 		}
 	},
 	actions: {
@@ -35,6 +45,17 @@ export default {
 			return DataService.makeRequest('devices').then(
 				success => {
 					commit('ADD_DEVICES', success);
+					return Promise.resolve(success);
+				},
+				error => {
+					return Promise.reject(error);
+				}
+			);
+		},
+		updateDevice({ commit }, payload) {
+			return DataService.makeRequest('devices/' + payload.imei, payload.device, 'PUT').then(
+				success => {
+					commit('UPDATE_DEVICE', payload);
 					return Promise.resolve(success);
 				},
 				error => {
@@ -61,6 +82,9 @@ export default {
 	getters: {
 		getDeviceByImei: (state) => (imei) => {
 			return state.devices.find(x => x.imei === imei);
+		},
+		getDeviceById: (state) => (id) => {
+			return state.devices.find(x => x.id === id);
 		},
 		getDevices: (state) => {
 			return state.devices;

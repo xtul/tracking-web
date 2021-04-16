@@ -17,11 +17,13 @@ Vue.use(CardPlugin);
 // forms
 import {
     BForm,
+    BFormCheckbox,
     BButton,
     BFormGroup,
     BFormInput
 } from 'bootstrap-vue';
 Vue.component('b-form', BForm);
+Vue.component('b-form-checkbox', BFormCheckbox);
 Vue.component('b-button', BButton);
 Vue.component('b-form-group', BFormGroup);
 Vue.component('b-form-input', BFormInput);
@@ -47,8 +49,16 @@ Vue.component('b-dropdown-item', BDropdownItem);
 Vue.component('b-navbar-toggle', BNavbarToggle);
 
 // modal
-import { BModal } from 'bootstrap-vue';
-Vue.component('v-b-modal', BModal);
+import { ModalPlugin } from 'bootstrap-vue';
+Vue.use(ModalPlugin);
+
+// lists
+import {
+    BListGroup,
+    BListGroupItem
+} from 'bootstrap-vue';
+Vue.component('b-list-group', BListGroup);
+Vue.component('b-list-group-item', BListGroupItem);
 
 // vue-layers (openlayers for vue)
 import VueLayers from 'vuelayers';
